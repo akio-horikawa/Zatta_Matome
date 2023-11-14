@@ -17,5 +17,5 @@ function dec(){ //何回でも使える機能
 //ついでにconstも使う
 const cor = {
     text : "Coral",
-    func : decodeURI,
+    func : dec,
 };
