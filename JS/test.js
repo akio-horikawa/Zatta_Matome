@@ -1,21 +1,64 @@
+JavaScriptを使って実際に動かしたコード
 
-//いつものやつ
+// ---------------------------------------------------------------
+/* いつものやつ
+*  コンソールにHello World!が表示される。
+*/
 console.log("Hello World!");
-
-//letで宣言してみる
-let aud = "Hello World!"; //audにいつものやつを代入して宣言
+// ---------------------------------------------------------------
+/* letで宣言してみる
+*  再代入可能
+*/ 
+let aud = "Hello World!"; 
 aud; // aud == Hello World!
-
-//constとは何ぞや
-const bea = "hellO worlD?"; //constに定数を代入して宣言
-bea = "Hello World!"; //再代入出来ないのでエラー
-
-//functionで遊んでみる
-function dec(){ //何回でも使える機能
-    console.log(this.text); //呼び出された場所でtextを吐き出す
-};
-//ついでにconstも使う
+// ---------------------------------------------------------------
+/* constとは何ぞや
+*  再代入不可
+*/
+const bea = "hellO worlD?";
+bea = "Hello World!"; // 再代入出来ないのでエラー
+// ---------------------------------------------------------------
+/* functionで遊んでみる
+*  何回でも使える機能
+*/
+function dec(){ 
+    console.log(this.text); // 呼び出された場所でtextを吐き出す
+}; // console 決してconseleではない。
+// ついでにconstも使う
 const cor = {
     text : "Coral",
     func : dec,
 };
+const elf = {
+    text : "Elf",
+    func : dec,
+};
+//実行
+cor.func(); // => Coral
+elf.func(); // => Elf
+/*
+*  functionで宣言された場合はthisで指定されるモノが呼び出された時に決定される。
+*  アロー関数と使い分けよう！
+*/
+// ---------------------------------------------------------------
+// アロー関数も使ってみる。
+const fue = () => {
+    console.log(this.text);
+};
+// こっちもconstで宣言しておく。
+const gan = {
+    text : "Gand",
+    func : fue,
+};
+// 実行
+gan.func(); // => undefined
+// アロー関数では宣言された時点でthisを確定させるため、呼び出せない。
+text = "Decagramaton"; //変数そのまま指定出来て驚いた。基本やらないように。
+// 実行
+gan.func(); // => Decagramaton
+/*前述の通りアロー関数は宣言時にthisを指定するが、
+*  var、または変数宣言無しだとグローバルスコープとして宣言される。
+*  一番前に読み込まれるため後から宣言しても読み込まれる。
+*  const let だとundefindになることを確認。
+*/
+// ---------------------------------------------------------------
