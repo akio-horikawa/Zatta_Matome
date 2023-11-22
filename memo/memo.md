@@ -22,3 +22,10 @@ git config --global user.email "hoge@hogemail.com"
 
 ---
 
+# markdown
+
+-  ` * //本文 * ` は斜体にするものだけど、英数字にしか機能せず、 **にほんご** では使用不可。標準で使用しているフォント的に斜体がないっぽい？
+
+
+
+---
