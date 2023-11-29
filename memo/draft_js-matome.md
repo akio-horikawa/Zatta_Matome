@@ -64,13 +64,13 @@ localでの起動は `npm start` をターミナルに入力。
 `function EditorApp()` 内の `const [editorState, setEditorState]` の役割がよくわからない。
 → `usestate` はReactにおけるフックの一種でコンポーネント内で状態を管理するもの。状態を保存し、更新することができる。今回で言えば、 `editorState` `setEditorState` を状態の保存、更新用の変数、関数として、 `useState(() => EditorState.createEmpty())` でエディタの初期状態をとっている。 `EditorState.createEmpty()` はエディタの状態をとる、 `editState` を生成するもの。
 
-基本的にエディタの設定は `return` 内の `<editor></editor>` に記述している。
+基本的にエディタの設定は `return` 内の `<Editor />` に記述している。
 恐らく、以下のコードは必須のようだ。
 ```
 editorState={editorState}
 onEditorStateChange={setEditorState}
 ```
-上のコードは当然のように `<editor></editor>` の中に記述されており、ユーザによる入力の処理に関連すると考えられる。
+上のコードは当然のように `<Editor />` の中に記述されており、ユーザによる入力の処理に関連すると考えられる。
 
 `editorState = {editorState}` に関しては、 まず `editorState` はエディタの状態を表し、この場所では現在のエディタの状態を保存している。
 
@@ -125,3 +125,36 @@ onEditorStateChange={setEditorState}
 ```
 
 入力欄の微妙な位置に `"ここだよ！"` が表示されているはず。
+
+#### キーバインド
+
+特定のキーが押された時の動作を設定できる。Draft.jsの機能では、同時に複数のキーを押した情報を一度に取得することはできない。
+以下コード。
+```
+ const keyBindingFn = (e) => {
+   if (e.key === "Enter") {
+     alert("アップルパイ！")
+     return "disabled"
+   }
+   return getDefaultKeyBinding(e)
+ }
+
+ /*
+ *  <Editor
+ *      /..
+ *      keyBindingFn={myKeyBindingFn}
+ *      /..
+ *  />
+ */
+```
+上のコードの部分が動作すると `Enter` を押したときに `alert` で `"アップルパイ！"` と表示される。あくまで、入力欄上で `Enter` を押したときのみ動作し、また `shift` `ctrl` 等と同時に押すと回避できる。
+
+キーバインドの設定部分で `return "disabled"` しているのは設定したキーを押したときのデフォルトの動きを無効化しているため。尚、他のプラグインの動作なども無効化するため注意。
+他にも `return "bold"` で文字列の太字化等がある。
+
+---
+
+#### 任意のブロックの削除
+
+Draft.jsはデフォルトで `BackSpace` でブロックを削除できる。（？）
+→ 要するに初期値などで追加した文字列や、 `h1` だったりと設定したもの、画像等を `BackSpace` で消せるということ。
