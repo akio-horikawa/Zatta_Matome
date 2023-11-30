@@ -291,3 +291,64 @@ function removeBlockKey(editorState, blockKey){
 
 #### 特殊なブロックのレンダリング
 
+Draft.jsの標準時でのブロックのタイプは以下。
+```
+type CoreDraftBlockType =
+  | 'unstyled'
+  | 'paragraph"
+  | 'header-one'
+  | 'header-two'
+  | 'header-three'
+  | 'header-four'
+  | 'header-five'
+  | 'header-six'
+  | 'unordered-list-item'
+  | 'ordered-list-item'
+  | 'blockquote'
+  | 'code-block'
+  | 'atomic';
+```
+参考サイトのコードはそのままでは動かなかったので、以下になんとか動作したコード。
+```
+ const ReadOnlyBlock = ({ block, blockProps }) => { // ReadOnlyBlockを定義し、blockとblockPropsを受け取る
+  const { readOnly } = blockProps; // blockPropsからreadOnlyを取り出す
+  return (
+   <div contentEditable={!readOnly}> // readOnlyプロパティの値に基づき、contentEditableの属性を設定する
+     {block.getText()} // ブロック内のテキストを取得
+   </div>
+  );
+ }
+
+ const myBlockRenderer = (block) => { // myBlockRendererを定義し、blockを受け取る
+  if (block.getType() === "unstyled") { // 受け取ったblockが"unstyled"かチェック
+   return {
+     component: ReadOnlyBlock, // "unstyled"であればReadOnlyBlockを返す
+     props: {
+       readOnly: true, // readOnlyをtrueに
+     },
+   }
+  }
+  return null
+ }
+
+ return (
+   <div className="App">
+     <header className="App-header">
+       Rich Text Editor
+     </header>
+     <Editor
+       editorState={editorState}
+       onEditorStateChange={setEditorState}
+       // readOnly={true}
+       keyBindingFn={keyBindingFn}
+       blockRendererFn={myBlockRenderer} // 追加：blockRendererFn => 特定のブロックタイプへのカスタムレンダリングを定義
+     />
+   </div>
+ )
+```
+レンダリングを設定しておくことで、ユーザの入力した特定のタイプのテキストをこちらの指定した形や設定に変更できる。ちょっと何言ってるかわからないが、雰囲気的に便利に聞こえる。
+
+---
+
+#### 画像の表示
+

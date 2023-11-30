@@ -68,6 +68,27 @@ function App() {
    return getDefaultKeyBinding(e)
  }
 
+ const ReadOnlyBlock = ({ block, blockProps }) => {
+  const { readOnly } = blockProps;
+  return (
+   <div contentEditable={!readOnly}>
+     {block.getText()}
+   </div>
+  );
+ }
+
+ const myBlockRenderer = (block) => {
+  if (block.getType() === "unstyled") {
+   return {
+     component: ReadOnlyBlock,
+     props: {
+       readOnly: true,
+     },
+   }
+  }
+  return null
+ }
+
  return (
    <div className="App">
      <header className="App-header">
@@ -78,6 +99,7 @@ function App() {
        onEditorStateChange={setEditorState}
        // readOnly={true}
        keyBindingFn={keyBindingFn}
+       blockRendererFn={myBlockRenderer}
      />
    </div>
  )
