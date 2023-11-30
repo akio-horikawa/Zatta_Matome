@@ -271,17 +271,23 @@ const keyBindingFn = (e) => {
 以下、ブロック削除の部分（後日我詳細追記予定）
 ```
 function removeBlockKey(editorState, blockKey){
-  const contentState = editorState.getCurrentContent();
-  const block = contentState.getBlockForKey(blockKey);
+  const contentState = editorState.getCurrentContent(); // 現在のエディタの状態を取得、保存
+  const block = contentState.getBlockForKey(blockKey); // 呼び出しで指定したキーでブロックを取得する 
   const blockRange = new SelectionState({
-    anchorKey: blockKey,
-    anchorOffset: 0,
-    focusKey: blockKey,
-    focusOffset: block.getLength(),
-  });
-  const newContentState = Modifier.removeRange(contentState, blockRange, 'backward');
-  const newEditorState = EditorState.push(editorState, newContentState, 'remove-range');
+    anchorKey: blockKey, // ブロックの開始位置
+    anchorOffset: 0, // ブロックの開始位置
+    focusKey: blockKey, // ブロックの終了位置
+    focusOffset: block.getLength(), // ブロックの終了位置
+  });　// new SelectStateでブロックの範囲を定義
+  const newContentState = Modifier.removeRange(contentState, blockRange, 'backward'); // 指定したブロックの範囲からコンテンツを削除する
+  const newEditorState = EditorState.push(editorState, newContentState, 'remove-range'); // 上のコードで返ってきた新しいContentStateをエディタに送る
 
   return newEditorState;
 }
 ```
+上のブロック削除のコードは参考にしていたサイトの `remove` では動いてくれなかったので、 `Modifier.removeRange` のほうで削除を実行している。調べた限りでは `Modifier`  はDraft.jsのブロック削除用のメソッドらしい。
+
+---
+
+#### 特殊なブロックのレンダリング
+
