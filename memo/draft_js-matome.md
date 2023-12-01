@@ -6,6 +6,8 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 
 恩恵として、ブラウザ間の挙動の差を吸収、エディタ全体を一つのStateで管理可、DOM（Document Object Model）をStateで持つためJavaScriptオブジェクトで管理可ということがあるらしい。情報がなさすぎて知ったことではないと言いたい。
 
+最新のコードは `Zatta_Matome/JS/app_test/src/App.js`に。
+
 ---
 
 初期（React自体よく理解できていないので全て手探り状態）
@@ -350,8 +352,66 @@ type CoreDraftBlockType =
 
 ---
 
-#### 画像の表示
+#### ~~画像の表示~~
+#### レンダリングの応用 
+<br>
 
-entityMapにメタデータを追加することで画像の表示やテキストにリンク要素を追加できるらしい。参考サイトのコードは動作しないどころか、そもそも呼び出されない変数だかプロパティがあるのか、元々の状態を破壊してくれた。
+~~entityMapにメタデータを追加することで画像の表示やテキストにリンク要素を追加できるらしい。~~ 参考サイトのコードは動作しないどころか、そもそも呼び出させない変数だかプロパティがあるのか、元々の状態を破壊してくれた。
 
 レンダリングの応用で画像の表示もリンク要素も実装できそうだが……。
+
+とりあえずリンクの紐づけだけは出来たのでコードを以下。
+```
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+
+    const blockKey = 'xxxxx';
+    const blockSelection = selectionState.merge({
+      anchorKey: blockKey,
+      focusKey: blockKey,
+    });
+
+    const newContentState = Modifier.setBlockData(
+      contentState,
+      blockSelection,
+      { link: 'https://www.google.co.jp/'}
+    );
+
+    const newEditorState = EditorState.push(
+      editorState,
+      newContentState,
+      'change-block-data'
+    );
+
+    if (newEditorState !== editorState) {
+      setEditorState(newEditorState);
+    }
+  },[editorState]);
+
+ const LinkBlock = ({ block, blockProps }) => {
+  const { readOnly } = blockProps;
+  return (
+   <div contentEditable={!readOnly}>
+     <a href={block.getData().get('link')} target="_blank">
+      {block.getText()}
+     </a>
+   </div>
+  );
+ }
+
+ const myBlockRenderer = (block) => {
+  if (block.getType() === "unstyled") {
+   return {
+     component: LinkBlock,
+     props: {
+       readOnly: true,
+     },
+   }
+  }
+  return null
+ }
+```
+上のコードは `function App` 内に記述している。
+リンクを紐づけるテキスト（ブロック）は `unstyled` だか `xxxxx` キーで指定している状況ではあるが、今まで見たコードから継ぎ接ぎで書いたものなのでどちらかが不要になるような記法はあるかも。（今回指定しているのは、「ここだよ！」で、Googleを紐づけている）
+現状だと、クリックしても遷移はしない。ただテキストに紐づいているだけ。 `onClick` 等で実装できるか？

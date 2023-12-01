@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -28,6 +28,10 @@ const initData = convertFromRaw({
  ],
 });
 
+const initState = EditorState.createWithContent(
+ initData,
+);
+
 function removeBlockKey(editorState, blockKey){
   const contentState = editorState.getCurrentContent();
   const block = contentState.getBlockForKey(blockKey);
@@ -42,10 +46,6 @@ function removeBlockKey(editorState, blockKey){
 
   return newEditorState;
 }
-
-const initState = EditorState.createWithContent(
- initData,
-);
 
 function App() {
  const [editorState, setEditorState] = useState(
@@ -68,11 +68,60 @@ function App() {
    return getDefaultKeyBinding(e)
  }
 
- const ReadOnlyBlock = ({ block, blockProps }) => {
+//  const ReadOnlyBlock = ({ block, blockProps }) => {
+//   const { readOnly } = blockProps;
+//   return (
+//    <div contentEditable={!readOnly}>
+//      {block.getText()}
+//    </div>
+//   );
+//  }
+
+//  const myBlockRenderer = (block) => {
+//   if (block.getType() === "unstyled") {
+//    return {
+//      component: ReadOnlyBlock,
+//      props: {
+//        readOnly: true,
+//      },
+//    }
+//   }
+//   return null
+//  }
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+
+    const blockKey = 'xxxxx';
+    const blockSelection = selectionState.merge({
+      anchorKey: blockKey,
+      focusKey: blockKey,
+    });
+
+    const newContentState = Modifier.setBlockData(
+      contentState,
+      blockSelection,
+      { link: 'https://www.google.co.jp/'}
+    );
+
+    const newEditorState = EditorState.push(
+      editorState,
+      newContentState,
+      'change-block-data'
+    );
+
+    if (newEditorState !== editorState) {
+      setEditorState(newEditorState);
+    }
+  },[editorState]);
+
+ const LinkBlock = ({ block, blockProps }) => {
   const { readOnly } = blockProps;
   return (
    <div contentEditable={!readOnly}>
-     {block.getText()}
+     <a href={block.getData().get('link')} target="_blank">
+      {block.getText()}
+     </a>
    </div>
   );
  }
@@ -80,7 +129,7 @@ function App() {
  const myBlockRenderer = (block) => {
   if (block.getType() === "unstyled") {
    return {
-     component: ReadOnlyBlock,
+     component: LinkBlock,
      props: {
        readOnly: true,
      },
