@@ -117,9 +117,12 @@ function App() {
 
  const LinkBlock = ({ block, blockProps }) => {
   const { readOnly } = blockProps;
+  const link = block.getData().get('link');
   return (
    <div contentEditable={!readOnly}>
-     <a href={block.getData().get('link')} target="_blank">
+     <a href={link} onClick={() => {
+      window.location.href= link;
+    }}>
       {block.getText()}
      </a>
    </div>
