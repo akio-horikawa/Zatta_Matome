@@ -10,6 +10,16 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 
 ---
 
+# 目次 <a id=index></a>
+
+[初期値のやつ](#init)
+[キーバインド](#keybind)
+[ブロック削除](#blockdelete)
+[レンダリング](#rendering)
+[レンダリング応用](#rendering_ex)
+
+---
+
 初期（React自体よく理解できていないので全て手探り状態）
 ```
 
@@ -83,7 +93,8 @@ onEditorStateChange={setEditorState}
 
 ---
 
-#### 初期値と読み取り専用化
+[目次](#index)
+#### 初期値と読み取り専用化 <a id=init></a>
 
 エディタに初期値を与えるには以下コード。
 ```
@@ -128,7 +139,10 @@ onEditorStateChange={setEditorState}
 
 入力欄の微妙な位置に `"ここだよ！"` が表示されているはず。
 
-#### キーバインド
+---
+
+[目次](#index)
+#### キーバインド <a id=keybind></a>
 
 特定のキーが押された時の動作を設定できる。Draft.jsの機能では、同時に複数のキーを押した情報を一度に取得することはできない。
 以下コード。
@@ -156,7 +170,8 @@ onEditorStateChange={setEditorState}
 
 ---
 
-#### 任意のブロックの削除
+[目次](#index)
+#### 任意のブロックの削除 <a id=blockdelete></a>
 
 Draft.jsはデフォルトで `BackSpace` でブロックを削除できる。（？）
 → 要するに初期値などで追加した文字列や、 `h1` だったりと設定したもの、画像等を `BackSpace` で消せるということ。
@@ -291,7 +306,8 @@ function removeBlockKey(editorState, blockKey){
 
 ---
 
-#### 特殊なブロックのレンダリング
+[目次](#index)
+#### 特殊なブロックのレンダリング <a id=rendering></a>
 
 Draft.jsの標準時でのブロックのタイプは以下。
 ```
@@ -352,8 +368,9 @@ type CoreDraftBlockType =
 
 ---
 
+[目次](#index)
 #### ~~画像の表示~~
-#### レンダリングの応用 
+#### レンダリングの応用 <a id=rendering_ex></a>
 <br>
 
 ~~entityMapにメタデータを追加することで画像の表示やテキストにリンク要素を追加できるらしい。~~ 参考サイトのコードは動作しないどころか、そもそも呼び出させない変数だかプロパティがあるのか、元々の状態を破壊してくれた。
