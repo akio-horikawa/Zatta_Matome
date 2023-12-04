@@ -3,8 +3,6 @@ import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionS
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './App.css';
-import createLinkPlugin from '@draft-js-plugins/anchor';
-import '@draft-js-plugins/anchor/lib/plugin.css';
 
 const initData = convertFromRaw({
  entityMap: {},
@@ -155,7 +153,6 @@ function App() {
        // readOnly={true}
        keyBindingFn={keyBindingFn}
        blockRendererFn={myBlockRenderer}
-
      />
    </div>
  )

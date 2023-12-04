@@ -17,6 +17,7 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 [ブロック削除](#blockdelete)
 [レンダリング](#rendering)
 [レンダリング応用](#rendering_ex)
+[draft-js-plugins](#djp)
 
 ---
 
@@ -50,6 +51,8 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
   export default App;
 
 ```
+
+draft.jsライブラリは `npm install draft-js` でインスコする。（追記）
 
 localでの起動は `npm start` をターミナルに入力。
 
@@ -432,3 +435,19 @@ type CoreDraftBlockType =
 上のコードは `function App` 内に記述している。
 リンクを紐づけるテキスト（ブロック）は `unstyled` だか `xxxxx` キーで指定している状況ではあるが、今まで見たコードから継ぎ接ぎで書いたものなのでどちらかが不要になるような記法はあるかも。（今回指定しているのは、「ここだよ！」で、Googleを紐づけている）
 現状だと、クリックしても遷移はしない。ただテキストに紐づいているだけ。 `onClick` 等で実装できるか？
+
+→ とりあえず `draft-js-plugins` について調査、機能の検証をしてみる。
+
+---
+
+#### draft-js-plugins <a id=djp></a>
+<br>
+
+とりあえず導入から以下。
+`$ npm install @draft-js-plugins/editor`
+`editor` からインストールしなければエラーが起きる。
+Link紐づけ機能のため、Anchorを導入。
+`$ npm install @draft-js-plugins/anchor`
+（何度かミスしたので一応残しておく。（plugin → plugins）（Anchor → anchor）間違えすぎた）
+
+ローカル環境では `react-draft-wysiwyg` でツールバーを形成しているので、この場所でリンクの紐づけ（入力されたテキストと入力されたリンクで）をどうにかして実装したいところ。
