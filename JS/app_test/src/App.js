@@ -155,7 +155,6 @@ function App() {
        // readOnly={true}
        keyBindingFn={keyBindingFn}
        blockRendererFn={myBlockRenderer}
-
      />
    </div>
  )
