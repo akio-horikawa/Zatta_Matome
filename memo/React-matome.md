@@ -12,3 +12,8 @@ Reactとは、JavaScriptのライブラリの一つで、Viewレイヤ（？）�
 
 ---
 
+#### ローカル環境
+
+Node.jsをインスコ
+npmをインスコ
+`npx create-react-app file名`

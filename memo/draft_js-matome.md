@@ -451,3 +451,28 @@ Link紐づけ機能のため、Anchorを導入。
 （何度かミスしたので一応残しておく。（plugin → plugins）（Anchor → anchor）間違えすぎた）
 
 ローカル環境では `react-draft-wysiwyg` でツールバーを形成しているので、この場所でリンクの紐づけ（入力されたテキストと入力されたリンクで）をどうにかして実装したいところ。
+
+---
+
+#### エラー
+
+多分バージョン等の問題、朝起動していきなり発生した。以下エラー文。
+```
+ERROR
+[eslint] Plugin "react" was conflicted between "package.json »
+ eslint-config-react-app »
+  C:\Users\xxx-xxx\Desktop\git\xxx_matome\JS\draft-test-app\node_modules\eslint-config-react-app\base.js" and "BaseConfig »
+   C:\Users\xxx-xxx\Desktop\git\xxx_Matome\JS\draft-test-app\node_modules\eslint-config-react-app\base.js".
+```
+明確な対処方法は不明だが、試したのは以下。
+```
+  npm remove eslint-config-react-app
+  npm add --dev eslint-config-react-app
+  npm install
+```
+上だけでは解消せず、以下の方法も追加で行った。
+```
+  npm update eslint
+  npm update eslint-config-react-app
+```
+不安は残るものの無事動作するようにはなった。
