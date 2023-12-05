@@ -155,6 +155,9 @@ function App() {
        // readOnly={true}
        keyBindingFn={keyBindingFn}
        blockRendererFn={myBlockRenderer}
+       localization={{
+        locale: "ja",
+       }}
      />
    </div>
  )
