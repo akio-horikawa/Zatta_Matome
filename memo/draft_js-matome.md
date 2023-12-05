@@ -6,7 +6,7 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 
 恩恵として、ブラウザ間の挙動の差を吸収、エディタ全体を一つのStateで管理可、DOM（Document Object Model）をStateで持つためJavaScriptオブジェクトで管理可ということがあるらしい。情報がなさすぎて知ったことではないと言いたい。
 
-最新のコードは `Zatta_Matome/JS/app_test/src/App.js`に。
+最新のコードは `Zatta_Matome/JS/draft-test-app/src/App.js`に。
 
 ---
 
