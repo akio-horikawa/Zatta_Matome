@@ -3,8 +3,7 @@ import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionS
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './App.css';
-import createLinkPlugin from '@draft-js-plugins/anchor';
-import '@draft-js-plugins/anchor/lib/plugin.css';
+
 
 const initData = convertFromRaw({
  entityMap: {},
@@ -145,21 +144,23 @@ function App() {
 
 
  return (
-   <div className="App">
-     <header className="App-header">
-       Rich Text Editor
-     </header>
-     <Editor
-       editorState={editorState}
-       onEditorStateChange={setEditorState}
-       // readOnly={true}
-       keyBindingFn={keyBindingFn}
-       blockRendererFn={myBlockRenderer}
-       localization={{
+  <div className="App">
+    <header className="App-header">
+      Rich Text Editor
+    </header>
+    <Editor
+      editorState={editorState}
+      onEditorStateChange={setEditorState}
+      // readOnly={true}
+      keyBindingFn={keyBindingFn}
+      blockRendererFn={myBlockRenderer}
+      localization={{
         locale: "ja",
-       }}
-     />
-   </div>
+      }}
+    />
+  </div>
+
+
  )
 }
 
