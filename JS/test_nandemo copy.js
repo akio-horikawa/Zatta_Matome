@@ -1,4 +1,4 @@
-{ <script>
+{ 
   var aTags = document.querySelectorAll(".public-DraftStyleDefault-block a");
   aTags.forEach(function(aTag){
     aTag.addEventListener("click", function(event){
@@ -7,4 +7,4 @@
       console.log("リンクがクリックされました");
     })
   });
-</script> }
+ }
