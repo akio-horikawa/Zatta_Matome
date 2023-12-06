@@ -9,3 +9,15 @@
   text-align: center;
   padding: 12px;
 }
+.footer {
+  color: white;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: calc(3px + 2vmin);
+  margin-bottom: 5vh;
+  text-align: center;
+  padding: 12px;
+  
+}
