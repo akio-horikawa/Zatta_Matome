@@ -381,6 +381,10 @@ type CoreDraftBlockType =
 レンダリングの応用で画像の表示もリンク要素も実装できそうだが……。
 
 とりあえずリンクの紐づけだけは出来たのでコードを以下。
+<span style="color:red"> 致命的な動作をするので非推奨。
+`editorState` だかを常に監視し続けて変更がある度に更新を行うため、負荷が異常にかかる。無限ループでCPUが禿げてしまうので止めよう。
+ </span>
+
 ```
   useEffect(() => {
     const contentState = editorState.getCurrentContent();
@@ -476,6 +480,10 @@ ERROR
   npm update eslint-config-react-app
 ```
 不安は残るものの無事動作するようにはなった。
+
+<span style="color:blue">
+Node.jsのバージョンを最新のものからv17.3.1（プロジェクトで指定されているバージョン）まで下げたところエラーが発生しなくなった。エラー文的にもバージョン周りでの問題のように思えるため、何処かのプラグインとそりが合わなかったと思われる。
+</span>
 
 ---
 
