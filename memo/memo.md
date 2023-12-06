@@ -5,7 +5,7 @@
 # 学習方法について
 
 ## JavaScript
-`memo/Js-kiso.md` に情報を纏めておく。
+`memo/JavaScript-S.md` に情報を纏めておく。
 また、試したコードに関しては `JS/test.js` に記述。
 
 ---
