@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './App.css';
-
 
 const initData = convertFromRaw({
  entityMap: {},
@@ -69,60 +68,14 @@ function App() {
    return getDefaultKeyBinding(e)
  }
 
-//  const ReadOnlyBlock = ({ block, blockProps }) => {
-//   const { readOnly } = blockProps;
-//   return (
-//    <div contentEditable={!readOnly}>
-//      {block.getText()}
-//    </div>
-//   );
-//  }
-
-//  const myBlockRenderer = (block) => {
-//   if (block.getType() === "unstyled") {
-//    return {
-//      component: ReadOnlyBlock,
-//      props: {
-//        readOnly: true,
-//      },
-//    }
-//   }
-//   return null
-//  }
-  useEffect(() => {
-    const contentState = editorState.getCurrentContent();
-    const selectionState = editorState.getSelection();
-
-    const blockKey = 'xxxxx';
-    const blockSelection = selectionState.merge({
-      anchorKey: blockKey,
-      focusKey: blockKey,
-    });
-
-    const newContentState = Modifier.setBlockData(
-      contentState,
-      blockSelection,
-      { link: 'https://www.google.co.jp/'}
-    );
-
-    const newEditorState = EditorState.push(
-      editorState,
-      newContentState,
-      'change-block-data'
-    );
-
-    if (newEditorState !== editorState) {
-      setEditorState(newEditorState);
-    }
-  },[editorState]);
-
  const LinkBlock = ({ block, blockProps }) => {
   const { readOnly } = blockProps;
   const link = block.getData().get('link');
   return (
    <div contentEditable={!readOnly}>
-     <a href={link} onClick={() => {
-      window.location.href= link;
+     <a href={link} onClick={(event) => {
+      event.preventDefault();
+      console.log("Link Clicked!" , link);
     }}>
       {block.getText()}
      </a>
@@ -151,7 +104,6 @@ function App() {
     <Editor
       editorState={editorState}
       onEditorStateChange={setEditorState}
-      // readOnly={true}
       keyBindingFn={keyBindingFn}
       blockRendererFn={myBlockRenderer}
       localization={{
