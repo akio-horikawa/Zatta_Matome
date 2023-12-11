@@ -16,26 +16,26 @@ def move_mouse():
         pyautogui.move(x,y)
     pyautogui.press('shift')
 
-def initialize():
-    val = 0
+def initialize(): # 起動時処理　何分ごとにカーソルを動かすか設定
+    val = 0 # 入力用
     print("please press enter / time set : 1 + enter")
-    val = input()
-    if val == "1":
+    val = input() # 入力待機
+    if val == "1": # "1"入力時には具体的に時間の入力を求める
         print("setting for wait time : 1 ~ 30")
-        val = input()
-        if val.isdecimal() and int(val)>1 and int(val)<31:
+        val = input() # インターバルの入力待機
+        if val.isdecimal() and int(val)>1 and int(val)<31: # 範囲内ならば
             print("begin")
-        else:
+        else: # 未入力または範囲外ならば
             val = 3
             print("begin")
-    else:
+    else: # 未入力はデフォルトで3分
         val = 3
         print("begin")
-    return int(val)
+    return int(val) # インターバル時間を返す
 
-def move_mouse_begin():
-    wait_min = initialize()
-    count_sleep = 0
+def move_mouse_begin(): # 動作する本体
+    wait_min = initialize() # 起動時処理
+    count_sleep = 0 # 経過時間
     print(format(strftime('%H:%M:%S')), "Count:", count_sleep, "Min")
     pos_orig = pyautogui.position()
     wait_min = int(wait_min)
