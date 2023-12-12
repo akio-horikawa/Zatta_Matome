@@ -5,6 +5,7 @@
 
  - draft-test...
     Draft.jsを利用しているコード、React環境など。
+    eslintを追加したので、エラーチェックが過激。
  - test.js
     基本的にJavaScriptを学習する中で動作を確かめたコードを記載。識別子は適当なので気にしないように。
  - test_nandemo...
