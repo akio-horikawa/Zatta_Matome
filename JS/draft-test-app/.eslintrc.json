@@ -6,11 +6,14 @@
     },
     "extends": "plugin:react/recommended",
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
     "rules": {
+        "semi": [2, "always"],
+        "prop-types" : "off"
     }
 }
