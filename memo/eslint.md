@@ -12,7 +12,7 @@ JavaScriptで利用できるlinter。コードを静的に解析して、コン�
 
 試用するのが最も理解し易い。
 以下に導入までを書き記しておく。
-ちな参考（ママ） → [サイト（qiita）](https://qiita.com/Mount/items/5f8196b891444575b7db)
+ちな参考（ママ） → <a href = "https://qiita.com/Mount/items/5f8196b891444575b7db" target = "_blank">サイト（qiita）</a>
 
 ##### 前提として
  - Node.js
