@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
+import { EditorState, convertFromRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './App.css';
