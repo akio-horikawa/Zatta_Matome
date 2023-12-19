@@ -36,9 +36,9 @@ def initialize(): # 起動時処理　何分ごとにカーソルを動かすか
 def move_mouse_begin(): # 動作する本体
     wait_min = initialize() # 起動時処理
     count_sleep = 0 # 経過時間
-    print(format(strftime('%H:%M:%S')), "Count:", count_sleep, "Min")
-    pos_orig = pyautogui.position()
-    wait_min = int(wait_min)
+    print(format(strftime('%H:%M:%S')), "Count:", count_sleep, "Min") # 時刻と経過時間を表示
+    pos_orig = pyautogui.position() # 現在のマウスカーソルの位置を保存
+    wait_min = int(wait_min) # 待機時間を保存
 
     max_min = 60*8
     check_min = 60
