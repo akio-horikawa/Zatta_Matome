@@ -49,5 +49,6 @@ markdownで図を簡単に作成できるツール。
 
 ```mermaid
 flowchart TB
-    ApplePie --> doc
+    A[Apple Pie] -->|Hi| B[Dr.]
+    A[Apple Pie] -->|ya| C[Texas]
 ```
