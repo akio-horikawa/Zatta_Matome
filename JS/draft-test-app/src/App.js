@@ -9,7 +9,7 @@ const customTheme = extendTheme({
       baseStyle: {
         fontSize: "0.1em",
         fontWeight: "bold",
-        backgroundColor: "blue.200",
+        backgroundColor: "blue.400",
         padding: "2px",
         borderRadius: "2px",
         boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
@@ -18,6 +18,20 @@ const customTheme = extendTheme({
   },
 })
 
+const Xtheme = extendTheme({
+  components:{
+    Tooltip: {
+      baseStyle: {
+        backgroundColor: "black",
+      }
+    }
+  }
+})
+
+function handleClick(){
+  console.log("Apple pie!");
+}
+
 function App() {
  return (
     <div>
@@ -25,21 +39,33 @@ function App() {
         TextTest
         <Box display="inline-block">
           <ChakraProvider theme={customTheme}>
-            <Tooltip label = "t" fontSize="md" placement="left">
-              <a>
+            <Tooltip label = "test" placement="left" fontSize="md">
+              <div>
                 <ImTwitter
                   style={{marginLeft : "10px"}}
+                  onClick={ handleClick }
                 />
-              </a>
+              </div>
             </Tooltip>
           </ChakraProvider>
         </Box>
+        <Box p="4px" display="flex" marginLeft="100px">
+          <ChakraProvider theme={customTheme}>
+            <Tooltip label="copy" placement="left">
+              <div>
+                <ImTwitter size={24} />
+              </div>
+            </Tooltip>
+          </ChakraProvider>
+          Apple Pie!
+        </Box>
       </header>
+
       <body>
         <Box display="inline-block" style={{ margin: "10rem" }}>
-          <ChakraProvider theme={customTheme}>
-            <Tooltip label="copy" fontSize="md" placement="left">
-              <Button colorScheme="teal">ホバーしてみろよ、できるものなら......</Button>
+          <ChakraProvider theme={Xtheme} >
+            <Tooltip label="X" fontSize="md" placement="left">
+              <Button colorScheme="blue"><ImTwitter marginLeft="5px"/>Twitter</Button>
             </Tooltip>
           </ChakraProvider>
         </Box>
