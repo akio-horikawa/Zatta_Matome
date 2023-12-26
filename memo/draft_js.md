@@ -12,11 +12,11 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 
 # 目次 <a id=index></a>
 
-[初期値のやつ](#init)
-[キーバインド](#keybind)
-[ブロック削除](#blockdelete)
-[レンダリング](#rendering)
-[レンダリング応用](#rendering_ex)
+[初期値のやつ](#init)  
+[キーバインド](#keybind)  
+[ブロック削除](#blockdelete)  
+[レンダリング](#rendering)  
+[レンダリング応用](#rendering_ex)  
 [draft-js-plugins](#djp)
 
 ---
