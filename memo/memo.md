@@ -52,3 +52,15 @@ flowchart TB
     A[Apple Pie] -->|Hi| B[Dr.]
     A[Apple Pie] -->|ya| C[Texas]
 ```
+---
+
+# git AWS CodeCommit クローン
+
+- AWS Management Consoleにログイン
+- IAMコンソールを開く。
+- ユーザーの詳細ページを開く。
+- "セキュリティ認証情報"タブを選択。
+- "HTTPS Git認証情報（AWS CodeCommit）"セクションで、"生成"ボタンをクリック。
+- 生成されたユーザー名とパスワードをコピー。
+- `git clone <URL>` の後、入力を求められるのでそれぞれ打ち込む。
+- 終了。
