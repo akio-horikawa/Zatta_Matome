@@ -22,7 +22,7 @@ Draft.jsとは、React（JavaScriptのライブラリ）上で、リッチテキ
 ---
 
 初期（React自体よく理解できていないので全て手探り状態）
-```
+```js
 
   import React, { useState } from 'react';
   import { EditorState } from 'draft-js';
@@ -57,7 +57,7 @@ draft.jsライブラリは `npm install draft-js` でインスコする。（追
 localでの起動は `npm start` をターミナルに入力。
 
 先頭から、ReactとDraft.jsのインポートはとりあえず良し。cssに関しては、 `create-react-app` のデフォルト状態に以下コードを足しただけ。
-```
+```css
 .App-header {
   background-color: #282c34;
   min-height: 5vh;
@@ -81,7 +81,7 @@ localでの起動は `npm start` をターミナルに入力。
 
 基本的にエディタの設定は `return` 内の `<Editor />` に記述している。
 恐らく、以下のコードは必須のようだ。
-```
+```js
 editorState={editorState}
 onEditorStateChange={setEditorState}
 ```
@@ -100,7 +100,7 @@ onEditorStateChange={setEditorState}
 #### 初期値と読み取り専用化 <a id=init></a>
 
 エディタに初期値を与えるには以下コード。
-```
+```js
   const initData = convertFromRaw({ // 生のオブジェクトからContentStateへ変換
     entityMap: {}, // 名前そのまま、メタデータを保存してデータを定義
     blocks: [ // エディタの内容
@@ -149,7 +149,7 @@ onEditorStateChange={setEditorState}
 
 特定のキーが押された時の動作を設定できる。Draft.jsの機能では、同時に複数のキーを押した情報を一度に取得することはできない。
 以下コード。
-```
+```js
  const keyBindingFn = (e) => {
    if (e.key === "Enter") {
      alert("アップルパイ！")
@@ -180,7 +180,7 @@ Draft.jsはデフォルトで `BackSpace` でブロックを削除できる。�
 → 要するに初期値などで追加した文字列や、 `h1` だったりと設定したもの、画像等を `BackSpace` で消せるということ。
 
 以下、色々試した上で成功したコード。（全文）
-```
+```js
 import React, { useState } from 'react';
 import { EditorState, convertFromRaw, getDefaultKeyBinding, Modifier, SelectionState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -270,7 +270,7 @@ function App() {
 export default App;
 ```
 上は、 `deleteMe` というキーを設定している *`"すぐにけせ"`* という表示を `Backspace` を押したときに消したい、というコード。キモになりそうなところを下記抜粋。
-```
+```js
 // deleteMeキーのブロックは省略
 
 const keyBindingFn = (e) => {
@@ -289,7 +289,7 @@ const keyBindingFn = (e) => {
  }
 ```
 以下、ブロック削除の部分（後日我詳細追記予定）
-```
+```js
 function removeBlockKey(editorState, blockKey){
   const contentState = editorState.getCurrentContent(); // 現在のエディタの状態を取得、保存
   const block = contentState.getBlockForKey(blockKey); // 呼び出しで指定したキーでブロックを取得する 
@@ -313,7 +313,7 @@ function removeBlockKey(editorState, blockKey){
 #### 特殊なブロックのレンダリング <a id=rendering></a>
 
 Draft.jsの標準時でのブロックのタイプは以下。
-```
+```js
 type CoreDraftBlockType =
   | 'unstyled'
   | 'paragraph"
@@ -330,7 +330,7 @@ type CoreDraftBlockType =
   | 'atomic';
 ```
 参考サイトのコードはそのままでは動かなかったので、以下になんとか動作したコード。
-```
+```js
  const ReadOnlyBlock = ({ block, blockProps }) => { // ReadOnlyBlockを定義し、blockとblockPropsを受け取る
   const { readOnly } = blockProps; // blockPropsからreadOnlyを取り出す
   return (
@@ -385,7 +385,7 @@ type CoreDraftBlockType =
 `editorState` だかを常に監視し続けて変更がある度に更新を行うため、負荷が異常にかかる。無限ループでCPUが禿げてしまうので止めよう。
  </span>
 
-```
+```js
   useEffect(() => {
     const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
@@ -461,7 +461,7 @@ Link紐づけ機能のため、Anchorを導入。
 #### エラー
 
 多分バージョン等の問題、朝起動していきなり発生した。以下エラー文。
-```
+```bash
 ERROR
 [eslint] Plugin "react" was conflicted between "package.json »
  eslint-config-react-app »
@@ -469,13 +469,13 @@ ERROR
    C:\Users\xxx-xxx\Desktop\git\xxx_Matome\JS\draft-test-app\node_modules\eslint-config-react-app\base.js".
 ```
 明確な対処方法は不明だが、試したのは以下。
-```
+```bash
   npm remove eslint-config-react-app
   npm add --dev eslint-config-react-app
   npm install
 ```
 上だけでは解消せず、以下の方法も追加で行った。
-```
+```bash
   npm update eslint
   npm update eslint-config-react-app
 ```
