@@ -24,8 +24,6 @@ yarn-error.log*
 
 # GIT容量確保
 /public
-package-lock.json
-package.json
 README.md
 /src/*
 !/src/App.css
