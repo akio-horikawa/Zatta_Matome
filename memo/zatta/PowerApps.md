@@ -18,23 +18,73 @@ PowerAppsは「公開」をしなければ更新者以外からは環境が変�
 PowerApps内、左メニューからデータ（見た目：ドラム缶）を選択。元データを検索する等して設定。Galleryの設定で紐づけることで画面に表示できる。見た目はコンポーネント（ラベル等）を設定して整える必要がある。
 ☆データ欄にはClearCollect、Collectで絞り込んだデータが保持される。画面遷移後にデータを渡したいとき等に利用できる。
 
-#### Gallery
+#### PowerAutomate連携
 
-データを連携すればギャラリーの種類に応じて並べて表示できる。最初からTitleとSubTitle等の要素が含まれている。NextArrowのOnSelectにはSelect(Parent)が設定されており、クリック時にデータの選択状態を変更してくれる。各データについての編集画面や詳細画面を作成する上で利用できる。
+PowerApps内、左メニューからPowerAutomate（太い矢印（右向き））を選択。当然の如く、AutomateでAppsでの呼び出しをトリガーにしたフローが無ければ意味がない。また、Automateのフロー内でSharePoint等の接続状況だったり、参照するデータを変更した場合にはApps側で設定しているAutomateの状態を更新（再読み込み？）をしてあげないと上手く動かなくなる。
 
-##### Select()
+### Collect / ClearCollect
 
-#### 表示・非表示設定
+`Collect(データソース, レコード, ...レコード)` `ClearCollect(データソース, レコード, ...レコード)` コード的には差はほとんどない。ClearCollectは一度データソース内をクリア（削除）してからレコードを追加する。Collectの方はクリアしないのでレコードは追加されるだけ。
 
-DeleteFlagのような要素を用意しておいて、0,1で削除されているかステータスを管理。 `ClearCollect` 内の `Filter` で条件を設定することで表示する内容を絞り込むことができる。設定方法については以下。
+### Filter
+
+`Filter(テーブル, 条件, ...条件)` テーブル内から指定した条件に合うデータだけ抜き出す。Collectのレコード指定等で利用。
 
 ```
-ClearCollect(
-    絞り込み後のList,
-    Filter(
-        絞り込み前のList,
-        条件
+Collect(DateSource,
+    Filter(Table,
+        ID = SelectID,
+        Name = DeployName,
+        Date =< SelectDate
     )
 )
 ```
 
+### Distinct
+
+`Distinct(テーブル, カラム, ...カラム)` テーブル内の指定したカラム内で重複するデータを削除する。カラムの指定が無ければ全カラムで重複削除を行う。
+
+```
+Collect(DataSource,
+    Distinct(
+        Filter(Table,
+            Name = DeployName,
+            Date =< SelectDate
+        )
+        ,
+        ID
+    )
+)
+```
+
+### AddColumns
+
+`AddColumns(テーブル, 列名1, 数式1, ...)` Collect関数などで設定したコレクションにカラムを追加する関数。
+
+```
+Collect(DataSource2,
+    AddColumns(
+        Datasource,
+        testData,
+        thisItem.testData
+    )
+)
+```
+
+### Patch
+
+`Patch(テーブル, 基本のテーブル, レコード1, ...)` SharePointのリストなど、データソースの更新と新規作成などを行う関数。新規登録自体は、対象とするテーブルの指定ができれば単純にレコードを記述するだけ。更新に関してはConcatenate等でテキストの指定をしつつ行うことになる。
+
+```
+Patch(DataSource,
+    Defaults(DataSource),
+    {
+        ID: thisItem.ID,
+        Name: thisItem.Name
+    }
+)
+```
+
+### Defaults
+
+`Defaults(データソース)` データソースの規定の状態を取得する関数。使用方法もまんま。
