@@ -109,7 +109,7 @@ mysite/
 python manage.py runserver
 ```
 
-"http://localhost:8000/"で開発用のページが確認できるはず。
+'http://localhost:8000/' で開発用のページが確認できるはず。
 
 [目次](#init)
 
