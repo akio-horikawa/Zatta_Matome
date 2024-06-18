@@ -1,15 +1,14 @@
 # Zatta_Matome
 
-## JS
-**JavaScript** 関連のコードまとめ。
-
-## Python
-**Python** 関連のコードまとめ。
-
 ## memo
 学習した内容のメモ、内容はタイトル通り？
 `memo` にはGitとの連携やmarkdownの仕様について雑多。
 
-## old
-更新後、名前被り等で同じ階層に置けないので避難所。
-バージョン管理をしたい。
+### Excel関連
+VBAとOfficeScriptについて軽くメモ。
+
+### js-md
+JavaScriptについての学習メモ // 未だ追記中？
+
+### zatta
+色々と手を出してはそのままにしているメモ。

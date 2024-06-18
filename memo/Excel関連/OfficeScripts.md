@@ -113,3 +113,17 @@ const table = workbook.getTable('テーブル名');
 table.getName(); // => テーブル名
 ```
 などなど操作可能。
+
+テーブルの列を取りたいのなら、
+```
+table.getColumn(カラム番号);
+```
+
+また、見出し以下を取る場合は、
+```
+table.getColumn(カラム番号).getRangeBetweenHeaderAndTotal();
+```
+
+注意したいのは、Rangeの指定をするのは、大体の場合は最後になること。
+テーブルやカラムを指定後にRangeの記述が続く形になる。
+テーブル以外でもセルの指定をする時なども同じルールが適用されると思われる。
