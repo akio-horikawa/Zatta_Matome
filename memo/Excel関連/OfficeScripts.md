@@ -127,3 +127,23 @@ table.getColumn(カラム番号).getRangeBetweenHeaderAndTotal();
 注意したいのは、Rangeの指定をするのは、大体の場合は最後になること。
 テーブルやカラムを指定後にRangeの記述が続く形になる。
 テーブル以外でもセルの指定をする時なども同じルールが適用されると思われる。
+
+## テーブル作成
+
+特殊な場合（Automateでの読み込み）では、Excelファイルの中身をテーブル化する必要がある。
+
+```ts
+function main(workbook: ExcelScript.Workbook) {
+
+  // 1ページ目の入力されている範囲を取得
+  let selectedSheet = workbook.getWorksheets()[0];
+  let range = selectedSheet.getUsedRange();
+
+  // テーブル作成　名前も設定する
+  let table =selectedSheet.addTable(range.getAddress(),true);
+  table.setName("table1");
+
+  }
+```
+
+Excelの内容にもよるが、シンプルな表の形であればこれだけでテーブルを用意できる。一番上の行は列タイトルである必要がある。（設定次第で変更できると思われる）
